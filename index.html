@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>NimbleJS Demo</title>
+    <style>
+      body { font-family: system-ui, sans-serif; padding: 2rem; max-width: 600px; margin: 0 auto; }
+      .counter { font-size: 2rem; font-weight: bold; margin: 1rem 0; }
+      button { padding: 0.5rem 1rem; margin-right: 0.5rem; cursor: pointer; }
+      .history-controls { margin-top: 2rem; padding-top: 1rem; border-top: 1px solid #ccc; }
+    </style>
+  </head>
+  <body>
+    <h1>NimbleJS Demo</h1>
+    
+    <div>
+      <div>Current Count: <span id="count" class="counter">0</span></div>
+      <div>Double Count (Computed): <span id="double-count">0</span></div>
+      
+      <div style="margin-top: 1rem;">
+        <button id="btn-dec">-1</button>
+        <button id="btn-inc">+1</button>
+      </div>
+    </div>
+
+    <div class="history-controls">
+      <h3>History & Plugins</h3>
+      <p>State is persisted to LocalStorage automatically.</p>
+      <button id="btn-undo" disabled>Undo</button>
+      <button id="btn-redo" disabled>Redo</button>
+    </div>
+
+    <script type="module" src="/main.ts"></script>
+  </body>
+</html>
