@@ -1,8 +1,10 @@
 {
-  "name": "nimblejs",
-  "private": true,
+  "name": "@onuracar-dev/nimblejs",
   "version": "0.1.0",
   "description": "A nimble, signals-based state management library.",
+  "publishConfig": {
+    "access": "public"
+  },
   "type": "module",
   "main": "./dist/nimblejs.umd.js",
   "module": "./dist/nimblejs.es.js",
