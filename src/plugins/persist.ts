@@ -7,7 +7,10 @@ export interface PersistOptions {
 }
 
 export function persist<T extends StoreState>(store: Store<T>, options: PersistOptions = {}) {
-  const storage = options.storage || window.localStorage;
+  const storage = options.storage || globalThis.localStorage;
+  if (!storage) {
+    throw new Error('[NimbleJS] Persist plugin requires a Storage implementation outside the browser.');
+  }
   const storageKey = options.key || `nimblejs_persist_${store.id}`;
 
   // 1. Hydrate from storage
