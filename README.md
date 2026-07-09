@@ -6,6 +6,14 @@
 
 **NimbleJS** is an ultra-lightweight, agile, flexible, and framework-agnostic *Signals (Reactivity)* and State Management library designed for modern web applications.
 
+## Project Snapshot
+
+NimbleJS is a small TypeScript reactivity toolkit built around signals, computed values, stores, and plugins. It is useful as a portfolio piece because it shows framework-level thinking: dependency tracking, cleanup behavior, plugin APIs, persistence, and package build discipline.
+
+- **Core idea:** fine-grained state updates without committing to React, Vue, or another UI framework.
+- **Recent hardening:** added Vitest coverage for reactivity and persistence, and made the persist plugin safe for non-browser runtimes by accepting explicit storage.
+- **Validation:** `npm test` and `npm run build`.
+
 It works flawlessly with Vanilla JS or Web Components directly, without any framework dependency (React, Vue, Angular, etc.). It can also be easily integrated into any framework whenever you need it.
 
 ---
