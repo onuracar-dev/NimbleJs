@@ -1,0 +1,22 @@
+<svg width="1200" height="630" viewBox="0 0 1200 630" fill="none" xmlns="http://www.w3.org/2000/svg">
+  <rect width="1200" height="630" rx="26" fill="#0F172A"/>
+  <rect x="52" y="48" width="1096" height="534" rx="20" fill="#111827" stroke="#334155"/>
+  <text x="86" y="114" fill="#F8FAFC" font-family="Segoe UI, Arial" font-size="42" font-weight="700">NimbleJS</text>
+  <text x="86" y="152" fill="#94A3B8" font-family="Segoe UI, Arial" font-size="20">Signals, computed values, effects, stores, plugins</text>
+  <g font-family="Segoe UI, Arial" font-size="18" font-weight="700">
+    <circle cx="205" cy="288" r="66" fill="#2563EB"/>
+    <text x="165" y="295" fill="white">signal</text>
+    <circle cx="462" cy="288" r="66" fill="#16A34A"/>
+    <text x="414" y="295" fill="white">computed</text>
+    <circle cx="719" cy="288" r="66" fill="#9333EA"/>
+    <text x="685" y="295" fill="white">effect</text>
+    <circle cx="976" cy="288" r="66" fill="#D97706"/>
+    <text x="934" y="295" fill="white">plugins</text>
+  </g>
+  <path d="M272 288H394" stroke="#94A3B8" stroke-width="4" stroke-linecap="round"/>
+  <path d="M529 288H651" stroke="#94A3B8" stroke-width="4" stroke-linecap="round"/>
+  <path d="M786 288H908" stroke="#94A3B8" stroke-width="4" stroke-linecap="round"/>
+  <rect x="86" y="414" width="986" height="88" rx="14" fill="#0B1220" stroke="#334155"/>
+  <text x="120" y="468" fill="#BAE6FD" font-family="Consolas, monospace" font-size="23">effect(() =&gt; render(count.value, doubled.value))</text>
+  <text x="86" y="544" fill="#94A3B8" font-family="Segoe UI, Arial" font-size="18">A compact TypeScript reactivity layer for framework-agnostic applications.</text>
+</svg>

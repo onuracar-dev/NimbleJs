@@ -2,32 +2,30 @@
 
 Small signals-based state management for framework-agnostic TypeScript apps.
 
+<img src="./docs/assets/preview.svg" alt="NimbleJS reactivity preview">
+
 NimbleJS is a lightweight reactivity toolkit with signals, computed values, effects, stores, and optional plugins for persistence and history. It is designed for vanilla JavaScript, Web Components, small widgets, and projects that need reactive state without adopting a full UI framework.
 
-## Why It Exists
+## What It Demonstrates
 
-Not every interactive app needs a large framework-level state layer. NimbleJS focuses on a smaller set of primitives:
-
-- `signal` for reactive values
-- `computed` for derived values
-- `effect` for subscriptions
-- `createStore` for grouped state
-- `persist` and `withHistory` for optional behavior
-
-## Highlights
-
-- Framework agnostic
 - Fine-grained dependency tracking
-- Automatic effect cleanup when dependencies change
+- Signal and computed value primitives
+- Effect cleanup when dependencies change
 - Store API built on top of signals
-- Persistence plugin with explicit storage support for non-browser runtimes
-- Vitest coverage for core reactivity and persistence behavior
+- Persistence plugin with explicit storage support
+- History plugin for undo/redo behavior
+- TypeScript package build with tests
 
-## Install
+## Core API
 
-```bash
-npm install @onuracar-dev/nimblejs
-```
+| Primitive | Purpose |
+| --- | --- |
+| `signal` | Holds a reactive value |
+| `computed` | Derives cached values from signals |
+| `effect` | Runs a function when its signal dependencies change |
+| `createStore` | Groups signals into a named store |
+| `persist` | Saves and hydrates store state |
+| `withHistory` | Adds undo/redo state history |
 
 ## Example
 
@@ -62,9 +60,11 @@ persist(store, {
 store.state.theme.value = "light";
 ```
 
-## Project Status
+## Installation
 
-This is an early library project with a compact API and working build pipeline. The next useful improvements are documentation examples, framework adapters, and a small demo page.
+```bash
+npm install @onuracar-dev/nimblejs
+```
 
 ## Development
 
@@ -76,8 +76,17 @@ npm run build
 
 ## Recent Hardening
 
-Vitest coverage was added for reactivity and persistence, and the persist plugin now fails clearly outside the browser unless a storage adapter is provided.
+- Added Vitest coverage for reactivity and persistence
+- Made the persist plugin fail clearly outside the browser unless a storage adapter is provided
+- Verified package build with declaration output
 
-## License
+## Roadmap
 
-MIT
+- Add framework adapter examples
+- Add a small interactive demo page
+- Expand plugin documentation
+- Add benchmark-style examples for dependency cleanup
+
+## Author
+
+Onur Acar - <https://github.com/onuracar-dev>
