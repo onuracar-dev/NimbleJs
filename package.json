@@ -1,7 +1,15 @@
 {
   "name": "@onuracar-dev/nimblejs",
   "version": "0.1.0",
-  "description": "A nimble, signals-based state management library.",
+  "description": "Small signals-based state management for framework-agnostic TypeScript apps.",
+  "author": "Onur Acar",
+  "keywords": [
+    "signals",
+    "reactivity",
+    "state-management",
+    "typescript",
+    "framework-agnostic"
+  ],
   "publishConfig": {
     "access": "public"
   },
