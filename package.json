@@ -11,7 +11,7 @@
   "bugs": {
     "url": "https://github.com/onuracar-dev/NimbleJs/issues"
   },
-  "homepage": "https://nimblejs.onuracar-work.workers.dev/",
+  "homepage": "https://nimblejs.onuracar.dev/",
   "keywords": [
     "signals",
     "reactivity",
