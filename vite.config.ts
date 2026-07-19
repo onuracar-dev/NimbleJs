@@ -2,6 +2,8 @@ import { defineConfig } from 'vite';
 import { resolve } from 'path';
 import dts from 'vite-plugin-dts';
 
+import { cloudflare } from "@cloudflare/vite-plugin";
+
 export default defineConfig({
   build: {
     lib: {
@@ -17,5 +19,5 @@ export default defineConfig({
       }
     }
   },
-  plugins: [dts({ bundleTypes: true, exclude: ['**/*.test.ts'] })]
+  plugins: [dts({ bundleTypes: true, exclude: ['**/*.test.ts'] }), cloudflare()]
 });
