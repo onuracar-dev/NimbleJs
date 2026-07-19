@@ -56,16 +56,19 @@
     "test": "vitest run",
     "typecheck": "tsc --noEmit",
     "build": "npm run typecheck && vite build && node scripts/copy-cjs-types.mjs",
-    "preview": "vite preview",
+    "preview": "npm run build && wrangler dev",
     "prepublishOnly": "npm test && npm run build",
-    "pack:check": "npm pack --dry-run"
+    "pack:check": "npm pack --dry-run",
+    "deploy": "npm run build && wrangler deploy"
   },
   "devDependencies": {
+    "@cloudflare/vite-plugin": "^1.45.1",
     "@microsoft/api-extractor": "^7.57.0",
     "@types/node": "^26.1.0",
     "typescript": "^5.2.2",
     "vite": "^8.1.5",
     "vite-plugin-dts": "^5.0.3",
-    "vitest": "^4.1.10"
+    "vitest": "^4.1.10",
+    "wrangler": "^4.112.0"
   }
 }
