@@ -1,4 +1,4 @@
-import { createStore, computed, effect, persist, withHistory } from './src';
+import { batch, createStore, computed, effect, persist, withHistory } from './src';
 
 // 1. Create a Store
 const myStore = createStore('appStore', {
@@ -20,6 +20,7 @@ const elCount = document.getElementById('count')!;
 const elDouble = document.getElementById('double-count')!;
 const btnInc = document.getElementById('btn-inc')!;
 const btnDec = document.getElementById('btn-dec')!;
+const btnBatch = document.getElementById('btn-batch')!;
 const btnUndo = document.getElementById('btn-undo')! as HTMLButtonElement;
 const btnRedo = document.getElementById('btn-redo')! as HTMLButtonElement;
 
@@ -47,6 +48,14 @@ btnInc.addEventListener('click', () => {
 
 btnDec.addEventListener('click', () => {
   myStore.state.count.value--;
+});
+
+btnBatch.addEventListener('click', () => {
+  batch(() => {
+    myStore.state.count.value++;
+    myStore.state.count.value++;
+    myStore.state.count.value++;
+  });
 });
 
 btnUndo.addEventListener('click', () => {

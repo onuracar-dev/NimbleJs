@@ -1,4 +1,4 @@
-import { activeEffect, ReactiveEffect } from './effect';
+import { activeEffect, notifyEffect, type ReactiveEffect } from './effect';
 
 export class Signal<T> {
   private _value: T;
@@ -14,7 +14,7 @@ export class Signal<T> {
   }
 
   set value(newValue: T) {
-    if (this._value !== newValue) {
+    if (!Object.is(this._value, newValue)) {
       this._value = newValue;
       this.trigger();
     }
@@ -29,9 +29,8 @@ export class Signal<T> {
   }
 
   private trigger() {
-    // Create a copy to prevent infinite loops if subscribers modify the set during iteration
     const subs = new Set(this.subscribers);
-    subs.forEach((effect) => effect());
+    subs.forEach(notifyEffect);
   }
 }
 

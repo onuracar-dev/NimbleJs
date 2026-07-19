@@ -7,18 +7,15 @@ export default defineConfig({
     lib: {
       entry: resolve(__dirname, 'src/index.ts'),
       name: 'NimbleJS',
-      fileName: (format) => `nimblejs.${format}.js`
+      formats: ['es', 'cjs'],
+      fileName: (format) => format === 'es' ? 'nimblejs.js' : 'nimblejs.cjs'
     },
     rollupOptions: {
-      // make sure to externalize deps that shouldn't be bundled
-      // into your library
       external: [],
       output: {
-        // Provide global variables to use in the UMD build
-        // for externalized deps
         globals: {}
       }
     }
   },
-  plugins: [dts({ rollupTypes: true })]
+  plugins: [dts({ bundleTypes: true, exclude: ['**/*.test.ts'] })]
 });

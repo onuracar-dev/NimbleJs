@@ -1,8 +1,17 @@
 {
   "name": "@onuracar-dev/nimblejs",
-  "version": "0.1.0",
+  "version": "0.2.0",
   "description": "Small signals-based state management for framework-agnostic TypeScript apps.",
   "author": "Onur Acar",
+  "license": "MIT",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/onuracar-dev/NimbleJs.git"
+  },
+  "bugs": {
+    "url": "https://github.com/onuracar-dev/NimbleJs/issues"
+  },
+  "homepage": "https://nimblejs-8w7ha5.v2.appdeploy.ai/",
   "keywords": [
     "signals",
     "reactivity",
@@ -11,30 +20,52 @@
     "framework-agnostic"
   ],
   "publishConfig": {
-    "access": "public"
+    "access": "public",
+    "registry": "https://registry.npmjs.org/",
+    "provenance": true
+  },
+  "files": [
+    "dist",
+    "README.md",
+    "LICENSE",
+    "CHANGELOG.md",
+    "SECURITY.md"
+  ],
+  "sideEffects": false,
+  "engines": {
+    "node": ">=18"
   },
   "type": "module",
-  "main": "./dist/nimblejs.umd.js",
-  "module": "./dist/nimblejs.es.js",
+  "main": "./dist/nimblejs.cjs",
+  "module": "./dist/nimblejs.js",
   "types": "./dist/index.d.ts",
   "exports": {
     ".": {
-      "import": "./dist/nimblejs.es.js",
-      "require": "./dist/nimblejs.umd.js",
-      "types": "./dist/index.d.ts"
+      "import": {
+        "types": "./dist/index.d.ts",
+        "default": "./dist/nimblejs.js"
+      },
+      "require": {
+        "types": "./dist/index.d.cts",
+        "default": "./dist/nimblejs.cjs"
+      }
     }
   },
   "scripts": {
     "dev": "vite",
     "test": "vitest run",
-    "build": "tsc && vite build",
-    "preview": "vite preview"
+    "typecheck": "tsc --noEmit",
+    "build": "npm run typecheck && vite build && node scripts/copy-cjs-types.mjs",
+    "preview": "vite preview",
+    "prepublishOnly": "npm test && npm run build",
+    "pack:check": "npm pack --dry-run"
   },
   "devDependencies": {
+    "@microsoft/api-extractor": "^7.57.0",
     "@types/node": "^26.1.0",
     "typescript": "^5.2.2",
-    "vite": "^5.2.0",
-    "vite-plugin-dts": "^3.8.1",
+    "vite": "^8.1.5",
+    "vite-plugin-dts": "^5.0.3",
     "vitest": "^4.1.10"
   }
 }

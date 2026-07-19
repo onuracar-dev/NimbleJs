@@ -1,92 +1,116 @@
 # NimbleJS
 
-Small signals-based state management for framework-agnostic TypeScript apps.
+Small, framework-agnostic signals and state management for TypeScript apps.
 
 <img src="./docs/assets/preview.svg" alt="NimbleJS reactivity preview">
 
-NimbleJS is a lightweight reactivity toolkit with signals, computed values, effects, stores, and optional plugins for persistence and history. It is designed for vanilla JavaScript, Web Components, small widgets, and projects that need reactive state without adopting a full UI framework.
+[Live website](https://nimblejs-8w7ha5.v2.appdeploy.ai/) · [GitHub repository](https://github.com/onuracar-dev/NimbleJs)
 
-## What It Demonstrates
+NimbleJS provides signals, computed values, effects, batched updates, stores,
+and optional history/persistence plugins. It has no renderer and no DOM
+dependency in its core, so it can support vanilla JavaScript, Web Components,
+workers, and framework adapters.
 
-- Fine-grained dependency tracking
-- Signal and computed value primitives
-- Effect cleanup when dependencies change
-- Store API built on top of signals
-- Persistence plugin with explicit storage support
-- History plugin for undo/redo behavior
-- TypeScript package build with tests
+> **Status:** pre-1.0 and suitable for experiments. API compatibility and
+> performance guarantees are not yet stable.
 
-## Core API
+## Install
 
-| Primitive | Purpose |
-| --- | --- |
-| `signal` | Holds a reactive value |
-| `computed` | Derives cached values from signals |
-| `effect` | Runs a function when its signal dependencies change |
-| `createStore` | Groups signals into a named store |
-| `persist` | Saves and hydrates store state |
-| `withHistory` | Adds undo/redo state history |
+```bash
+npm install @onuracar-dev/nimblejs
+```
 
-## Example
+## Signals, computed values, and cleanup
 
 ```ts
-import { computed, effect, signal } from "@onuracar-dev/nimblejs";
+import { computed, effect, signal } from '@onuracar-dev/nimblejs';
 
 const count = signal(0);
 const doubled = computed(() => count.value * 2);
 
 const stop = effect(() => {
   console.log(`count=${count.value}, doubled=${doubled.value}`);
+  return () => console.log('cleanup before the next run');
 });
 
 count.value = 2;
 stop();
+doubled.dispose();
 ```
 
-## Store And Persistence
+Effects subscribe only to values read in their latest run. Stopping an effect
+removes its dependencies and executes its final cleanup once.
+
+## Batching and scheduling
+
+`batch` delays notifications until its outermost callback completes and runs
+each affected effect once.
 
 ```ts
-import { createStore, persist } from "@onuracar-dev/nimblejs";
+import { batch, effect, signal } from '@onuracar-dev/nimblejs';
 
-const store = createStore("settings", {
-  theme: "dark",
-  sidebarOpen: true,
+const first = signal('Ada');
+const last = signal('Lovelace');
+effect(() => console.log(`${first.value} ${last.value}`));
+
+batch(() => {
+  first.value = 'Grace';
+  last.value = 'Hopper';
 });
-
-persist(store, {
-  storage: globalThis.localStorage,
-});
-
-store.state.theme.value = "light";
 ```
 
-## Installation
+Effects also accept a scheduler for integration with microtask, animation-frame,
+or host-framework queues:
 
-```bash
-npm install @onuracar-dev/nimblejs
+```ts
+effect(render, { scheduler: (run) => queueMicrotask(run) });
 ```
+
+The scheduler owns de-duplication outside a NimbleJS `batch`.
+
+## Stores, persistence, and history
+
+```ts
+import { createStore, persist, withHistory } from '@onuracar-dev/nimblejs';
+
+const settings = createStore('settings', { theme: 'dark', sidebarOpen: true });
+persist(settings, { storage: globalThis.localStorage });
+const history = withHistory(settings, { maxHistory: 25 });
+
+settings.setRawState({ theme: 'light', sidebarOpen: false });
+history.undo();
+history.dispose();
+```
+
+Persistence uses JSON and application-provided `Storage`. It does not encrypt,
+validate, migrate, or synchronize state. History also uses JSON snapshots, so
+circular and non-serializable values are outside its supported scope.
+
+## API
+
+| Export | Purpose |
+| --- | --- |
+| `signal` | Mutable reactive value with `Object.is` equality |
+| `computed` | Derived value with explicit `dispose()` |
+| `effect` | Dependency-tracked side effect with cleanup and optional scheduler |
+| `batch` | Coalesce notifications across nested synchronous writes |
+| `createStore` | Named collection of signals and batched raw-state updates |
+| `persist` | Hydrate/save a store through a `Storage` adapter |
+| `withHistory` | Bounded JSON-snapshot undo/redo controller |
 
 ## Development
 
 ```bash
-npm install
+npm ci
 npm test
 npm run build
+npm run pack:check
 ```
 
-## Recent Hardening
+The architectural boundary with FluxDOM is recorded in
+[`docs/adr/0001-fluxdom-and-nimblejs-boundary.md`](./docs/adr/0001-fluxdom-and-nimblejs-boundary.md):
+the projects share tested semantics but do not depend on one another.
 
-- Added Vitest coverage for reactivity and persistence
-- Made the persist plugin fail clearly outside the browser unless a storage adapter is provided
-- Verified package build with declaration output
+## License
 
-## Roadmap
-
-- Add framework adapter examples
-- Add a small interactive demo page
-- Expand plugin documentation
-- Add benchmark-style examples for dependency cleanup
-
-## Author
-
-Onur Acar - <https://github.com/onuracar-dev>
+MIT. Copyright 2026 Onur Acar.

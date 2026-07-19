@@ -1,0 +1,28 @@
+# Tests
+
+## Test 1 - Signals story and batch lab load [sanity]
+Viewport: desktop (1280x800)
+Description: Verifies the library message and batching interaction are available.
+Steps:
+1. Navigate to the app
+2. Confirm "State that only moves" is visible and navigate to "Batch lab"
+3. Confirm the computed output contains "Ada" and "Lovelace"
+Expected: The NimbleJS story and initialized batch lab render successfully.
+
+## Test 2 - Batched update models one effect
+Viewport: desktop (1280x800)
+Description: Verifies the primary batch demonstration changes both signals in one modeled reaction.
+Steps:
+1. Navigate to the batch lab
+2. Click "Write in batch"
+3. Observe the computed output and status text
+Expected: Output shows "Katherine Johnson" and status says "Batch committed: dependent effect modeled once."
+
+## Test 3 - Mobile reset restores deterministic lab state
+Viewport: mobile (375x667)
+Description: Verifies collapsed navigation and state recovery remain usable on a narrow screen.
+Steps:
+1. Navigate to the app
+2. Open navigation and tap "Batch lab"
+3. Tap "Write separately" and then "Reset lab"
+Expected: Navigation closes, output returns to "Ada Lovelace", and modeled effect runs returns to 1.

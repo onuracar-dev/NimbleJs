@@ -1,4 +1,5 @@
 import { Signal, signal } from './signal';
+import { batch } from './effect';
 
 export type StoreState = Record<string, any>;
 export type SignalsRecord<T extends StoreState> = {
@@ -31,11 +32,13 @@ export class Store<T extends StoreState> {
 
   // Helper to update state entirely
   setRawState(newState: Partial<T>) {
-    for (const key in newState) {
-      if (this.state[key] && Object.prototype.hasOwnProperty.call(newState, key)) {
-        this.state[key].value = newState[key] as T[Extract<keyof T, string>];
+    batch(() => {
+      for (const key in newState) {
+        if (this.state[key] && Object.prototype.hasOwnProperty.call(newState, key)) {
+          this.state[key].value = newState[key] as T[Extract<keyof T, string>];
+        }
       }
-    }
+    });
   }
 }
 

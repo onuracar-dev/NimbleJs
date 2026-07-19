@@ -1,7 +1,14 @@
 // Core
 export { signal, Signal } from './core/signal';
 export { computed, Computed } from './core/computed';
-export { effect, type EffectFn } from './core/effect';
+export {
+  batch,
+  effect,
+  type EffectCleanup,
+  type EffectFn,
+  type EffectOptions,
+  type EffectScheduler,
+} from './core/effect';
 export { createStore, Store, type StoreState, type SignalsRecord } from './core/store';
 
 // Plugins

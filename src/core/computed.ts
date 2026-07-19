@@ -1,19 +1,27 @@
-import { effect } from './effect';
-import { Signal } from './signal';
+import { effect, type EffectCleanup } from './effect';
+import { signal, type Signal } from './signal';
 
-export class Computed<T> extends Signal<T> {
-  constructor(computeFn: () => T) {
-    // Initialize with undefined, we will set it immediately in the effect
-    super(undefined as unknown as T);
-    
-    // We run the computeFn inside an effect so that this computed
-    // automatically tracks dependencies and updates its own value
-    effect(() => {
-      this.value = computeFn();
+export class Computed<T> {
+  private readonly state: Signal<T>;
+  private readonly stopEffect: EffectCleanup;
+
+  constructor(compute: () => T) {
+    this.state = signal<T>(undefined as T);
+    this.stopEffect = effect(() => {
+      this.state.value = compute();
     });
+  }
+
+  get value(): T {
+    return this.state.value;
+  }
+
+  /** Permanently stop this computed value from observing its dependencies. */
+  dispose(): void {
+    this.stopEffect();
   }
 }
 
-export function computed<T>(computeFn: () => T): Computed<T> {
-  return new Computed(computeFn);
+export function computed<T>(compute: () => T): Computed<T> {
+  return new Computed(compute);
 }
