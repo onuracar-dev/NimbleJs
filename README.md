@@ -4,7 +4,7 @@ Small, framework-agnostic signals and state management for TypeScript apps.
 
 <img src="./docs/assets/preview.svg" alt="NimbleJS reactivity preview">
 
-[Live website](https://nimblejs-8w7ha5.v2.appdeploy.ai/) · [GitHub repository](https://github.com/onuracar-dev/NimbleJs)
+[Live website](https://nimblejs.onuracar-work.workers.dev/) · [GitHub repository](https://github.com/onuracar-dev/NimbleJs)
 
 NimbleJS provides signals, computed values, effects, batched updates, stores,
 and optional history/persistence plugins. It has no renderer and no DOM
