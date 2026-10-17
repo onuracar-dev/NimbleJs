@@ -1,28 +1,25 @@
 # Tests
 
-## Test 1 - Signals story and batch lab load [sanity]
+## Test 1 - Page and playground load [sanity]
 Viewport: desktop (1280x800)
-Description: Verifies the library message and batching interaction are available.
 Steps:
 1. Navigate to the app
-2. Confirm "State that only moves" is visible and navigate to "Batch lab"
-3. Confirm the computed output contains "Ada" and "Lovelace"
-Expected: The NimbleJS story and initialized batch lab render successfully.
+2. Confirm the heading "Signals and stores for TypeScript" is visible
+3. Scroll to "Watch one effect react."
+Expected: The effect log shows run #1 with "Ada Lovelace · 0" and "effect runs" shows 1.
 
-## Test 2 - Batched update models one effect
-Viewport: desktop (1280x800)
-Description: Verifies the primary batch demonstration changes both signals in one modeled reaction.
+## Test 2 - Batch runs the effect once
 Steps:
-1. Navigate to the batch lab
-2. Click "Write in batch"
-3. Observe the computed output and status text
-Expected: Output shows "Katherine Johnson" and status says "Batch committed: dependent effect modeled once."
+1. Click "3 writes"
+2. Click "3 writes in batch()"
+Expected: The first click reports "→ 3 runs", the second "→ 1 run".
 
-## Test 3 - Mobile reset restores deterministic lab state
-Viewport: mobile (375x667)
-Description: Verifies collapsed navigation and state recovery remain usable on a narrow screen.
+## Test 3 - Dynamic dependency
 Steps:
-1. Navigate to the app
-2. Open navigation and tap "Batch lab"
-3. Tap "Write separately" and then "Reset lab"
-Expected: Navigation closes, output returns to "Ada Lovelace", and modeled effect runs returns to 1.
+1. Uncheck "effect reads count"
+2. Click "count++"
+Expected: The count edge turns dashed and the action reports "→ 0 runs".
+
+## Test 4 - Mobile
+Viewport: mobile (375x812)
+Expected: No horizontal page scroll; the playground stacks into one column.
