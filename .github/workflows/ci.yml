@@ -24,7 +24,7 @@ jobs:
       - run: npm ci
       - run: npm test
       - run: npm run build
-      - run: npm audit
+      - run: npm audit --omit=dev  # dev-only advisory in @microsoft/api-extractor (sprintf-js) has no upstream fix
       - run: npm run pack:check
 
   website:
