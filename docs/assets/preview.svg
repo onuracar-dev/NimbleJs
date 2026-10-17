@@ -1,22 +1,33 @@
-<svg width="1200" height="630" viewBox="0 0 1200 630" fill="none" xmlns="http://www.w3.org/2000/svg">
-  <rect width="1200" height="630" rx="26" fill="#0F172A"/>
-  <rect x="52" y="48" width="1096" height="534" rx="20" fill="#111827" stroke="#334155"/>
-  <text x="86" y="114" fill="#F8FAFC" font-family="Segoe UI, Arial" font-size="42" font-weight="700">NimbleJS</text>
-  <text x="86" y="152" fill="#94A3B8" font-family="Segoe UI, Arial" font-size="20">Signals, computed values, effects, stores, plugins</text>
-  <g font-family="Segoe UI, Arial" font-size="18" font-weight="700">
-    <circle cx="205" cy="288" r="66" fill="#2563EB"/>
-    <text x="165" y="295" fill="white">signal</text>
-    <circle cx="462" cy="288" r="66" fill="#16A34A"/>
-    <text x="414" y="295" fill="white">computed</text>
-    <circle cx="719" cy="288" r="66" fill="#9333EA"/>
-    <text x="685" y="295" fill="white">effect</text>
-    <circle cx="976" cy="288" r="66" fill="#D97706"/>
-    <text x="934" y="295" fill="white">plugins</text>
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 880 300" role="img" aria-labelledby="t d">
+  <title id="t">NimbleJS dependency graph</title>
+  <desc id="d">Three signals feed a computed value and an effect. The effect only subscribes to what it read on its latest run.</desc>
+  <rect width="880" height="300" rx="16" fill="#efe9dc"/>
+  <g font-family="'JetBrains Mono', ui-monospace, Menlo, Consolas, monospace" font-size="15" font-weight="500" text-anchor="middle">
+    <g fill="none" stroke-width="2">
+      <path d="M214 82 C320 82, 320 128, 400 128" stroke="#4a453c"/>
+      <path d="M214 160 C320 160, 320 128, 400 128" stroke="#4a453c"/>
+      <path d="M520 128 C600 128, 600 160, 660 160" stroke="#4a453c"/>
+      <path d="M214 238 C440 238, 560 160, 660 160" stroke="#6d665a" stroke-dasharray="5 6" opacity=".6"/>
+    </g>
+    <g fill="#f8f4ea" stroke-width="2">
+      <rect x="114" y="62" width="100" height="40" rx="9" stroke="#c2410c"/>
+      <rect x="114" y="140" width="100" height="40" rx="9" stroke="#c2410c"/>
+      <rect x="114" y="218" width="100" height="40" rx="9" stroke="#c2410c"/>
+      <rect x="400" y="108" width="120" height="40" rx="9" stroke="#6d28d9"/>
+      <rect x="660" y="140" width="110" height="40" rx="20" stroke="#0f766e" fill="#0f766e"/>
+    </g>
+    <g fill="#1c1a17">
+      <text x="164" y="87">first</text>
+      <text x="164" y="165">last</text>
+      <text x="164" y="243">count</text>
+      <text x="460" y="133">fullName</text>
+    </g>
+    <text x="715" y="165" fill="#f8f4ea">effect</text>
   </g>
-  <path d="M272 288H394" stroke="#94A3B8" stroke-width="4" stroke-linecap="round"/>
-  <path d="M529 288H651" stroke="#94A3B8" stroke-width="4" stroke-linecap="round"/>
-  <path d="M786 288H908" stroke="#94A3B8" stroke-width="4" stroke-linecap="round"/>
-  <rect x="86" y="414" width="986" height="88" rx="14" fill="#0B1220" stroke="#334155"/>
-  <text x="120" y="468" fill="#BAE6FD" font-family="Consolas, monospace" font-size="23">effect(() =&gt; render(count.value, doubled.value))</text>
-  <text x="86" y="544" fill="#94A3B8" font-family="Segoe UI, Arial" font-size="18">A compact TypeScript reactivity layer for framework-agnostic applications.</text>
+  <g font-family="ui-sans-serif, system-ui, -apple-system, 'Segoe UI', sans-serif" font-size="14" fill="#6d665a">
+    <text x="114" y="36" font-size="13" letter-spacing="1.5" font-family="'JetBrains Mono', ui-monospace, Menlo, Consolas, monospace">SIGNAL</text>
+    <text x="400" y="88" font-size="13" letter-spacing="1.5" font-family="'JetBrains Mono', ui-monospace, Menlo, Consolas, monospace">COMPUTED</text>
+    <text x="660" y="120" font-size="13" letter-spacing="1.5" font-family="'JetBrains Mono', ui-monospace, Menlo, Consolas, monospace">EFFECT</text>
+    <text x="330" y="276">dashed: not read on the latest run, so not subscribed</text>
+  </g>
 </svg>
