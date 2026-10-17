@@ -1,4 +1,4 @@
-import { effect, type EffectCleanup } from './effect';
+import { createEffect, type EffectCleanup } from './effect';
 import { signal, type Signal } from './signal';
 
 export class Computed<T> {
@@ -7,9 +7,13 @@ export class Computed<T> {
 
   constructor(compute: () => T) {
     this.state = signal<T>(undefined as T);
-    this.stopEffect = effect(() => {
-      this.state.value = compute();
-    });
+    this.stopEffect = createEffect(
+      () => {
+        this.state.value = compute();
+      },
+      {},
+      true,
+    );
   }
 
   get value(): T {

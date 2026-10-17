@@ -2,6 +2,17 @@
 
 This project follows Semantic Versioning. Before 1.0, a minor release may change experimental APIs.
 
+## Unreleased
+
+### Fixed
+
+- An effect that read a computed value and one of its sources could run twice for a single
+  batch or write. Computed values now settle before plain effects run.
+
+### Changed
+
+- The website playground runs the library source directly instead of a visual model.
+
 ## 0.2.0 - 2026-07-19
 
 ### Added

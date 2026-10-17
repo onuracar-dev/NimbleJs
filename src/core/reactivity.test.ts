@@ -113,4 +113,33 @@ describe('NimbleJS reactivity', () => {
     expect(values).toEqual([4, 6]);
     expect(doubled.value).toBe(6);
   });
+
+  it('runs an effect once when a batch changes a computed and a signal it reads', () => {
+    const first = signal('Ada');
+    const last = signal('Lovelace');
+    const count = signal(0);
+    const fullName = computed(() => `${first.value} ${last.value}`);
+    const outputs: string[] = [];
+    effect(() => outputs.push(`${fullName.value} ${count.value}`));
+
+    batch(() => {
+      first.value = 'Grace';
+      last.value = 'Hopper';
+      count.value = 1;
+    });
+
+    expect(outputs).toEqual(['Ada Lovelace 0', 'Grace Hopper 1']);
+  });
+
+  it('avoids diamond glitches outside a batch', () => {
+    const count = signal(1);
+    const doubled = computed(() => count.value * 2);
+    const quadrupled = computed(() => doubled.value * 2);
+    const outputs: string[] = [];
+    effect(() => outputs.push(`${count.value}/${doubled.value}/${quadrupled.value}`));
+
+    count.value = 2;
+
+    expect(outputs).toEqual(['1/2/4', '2/4/8']);
+  });
 });

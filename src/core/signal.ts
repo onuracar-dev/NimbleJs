@@ -1,4 +1,4 @@
-import { activeEffect, notifyEffect, type ReactiveEffect } from './effect';
+import { activeEffect, batch, notifyEffect, type ReactiveEffect } from './effect';
 
 export class Signal<T> {
   private _value: T;
@@ -29,8 +29,9 @@ export class Signal<T> {
   }
 
   private trigger() {
+    // A single write is a one-item batch, so dependent effects see settled computed values.
     const subs = new Set(this.subscribers);
-    subs.forEach(notifyEffect);
+    batch(() => subs.forEach(notifyEffect));
   }
 }
 
